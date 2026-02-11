@@ -13152,10 +13152,7 @@ div#notebook {
     <img align="center" width="200" height="200" src="backimu.png" alt='missing' />
 </figure>
 <p>I ran the Example1_Basics from the IMU library I downloaded and observed the sensor values as I flipped, rotated, and applied forces on the board so that it accelerated. For the acceleration data, you can see the acceleration in the xyz direction with units of mg (so divide the values by 1000 to get 1g=9.81m/s²). As an example, when the IMU is flat on the table with the Z axis of the IMU pointing out of the table, you can see that the acceleration in the Z direction is around 1020 mg=1.02g, which is a little off from Earth’s gravity of 1g=9.81 m/s². For the gyro data, this is the data in the xyz direction of the angular velocity in deg/second. When you don’t touch the IMU, it remains at close to 0 deg/sec in all directions, but when you start moving it, you can see the values changing in the direction of the axis that you move it. There is a video demo below.</p>
-<video class="center-video" width="600" height="360" controls>
-  <source src="imudemo.MOV" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/fV7C43OINII?si=fEdEAi4bKuXFxrER" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 <p>I finally had the onboard LED blink 3 times slowly at the end of the setup routine so we know that the board is done setting up the IMU and Bluetooth even if we cannot see the serial monitor. You can see this in the video above.</p>
 </div>
 </div>
