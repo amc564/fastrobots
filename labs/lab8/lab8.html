@@ -13215,11 +13215,11 @@ div#notebook {
 <figure>
     <img align="center" width="700" height="200" src="yaw2.png" alt='missing' />
 </figure>
-<p>Around 1600ms, the robot is 180° from its original position. Because of atan2, as the robot rotates CW, the measurement goes from 180° to -179°, etc. So in reality, the robot does stay around 180° from the original angle after around 1600ms. This means it drives pretty straight as well on the return. Note also how looking at the slope of this graph around 1200ms the angular speed decreases as a result of rotating the robot CCW to decrease the built-up angular momentum.</p>
+<p>Around 1600ms, the robot is 180° from its original position. Because of atan2, as the robot rotates CW, the measurement goes from 180° to -179°, etc. So in reality, the robot does stay around 180° from the original angle after around 1600ms. This means it drives pretty straight as well on the return. Also around 1200ms, you can see the angular speed decreases as a result of rotating the robot CCW to decrease the built-up angular momentum.</p>
 <figure>
     <img align="center" width="700" height="200" src="motor2.png" alt='missing' />
 </figure>
-<p>Below is video evidence of other succesful runs to prove consistency:</p>
+<p>Evidence of other runs to prove consistency:</p>
 <iframe width="560" height="315"
   src="https://www.youtube.com/embed/Y4j4SgHPWr0"
   style="display: block; margin: 0 auto;"
