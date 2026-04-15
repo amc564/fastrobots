@@ -13133,9 +13133,9 @@ div#notebook {
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2>Control</h2>
-<p>I chose to use orientation control to ensure my readings were consistent regardless of floor friction or battery levels. I chose orientation over angular speed control because I wanted the robot to stop when it took TOF measurements. In Lab 6, I only did P control, but for this lab I opted for PI control so that I could close the steady-state error gap. I felt there was no need for a D term, as that helps slow the robot down if the P is high, but I didn’t set P too high since we want slow and controlled turns. The set_points were also not too far from the starting point so the robot wouldn’t gain that much speed. Without the D term, my robot did occasionally oscillate because of the I term and lack of a D term, but we are allowed to take our time to reach the set_point. We need TOF data at exact angles so settling time and number of oscillations don’t matter as much.</p>
+<p>I chose orientation control to ensure my readings were consistent regardless of floor friction or battery levels. I chose orientation over angular speed control because I wanted the robot to stop when it took TOF measurements. In Lab 6, I only did P control, but for this lab I opted for PI control so that I could close the steady-state error gap. I felt there was no need for a D term, as that helps slow the robot down if the P is high, but I didn’t set P too high since we want slow and controlled turns. The set_points were also not too far from the starting point so the robot wouldn’t gain that much speed. Without the D term, my robot did occasionally oscillate because of the I term and lack of a D term, but we are allowed to take our time to reach the set_point. We need TOF data at exact angles so settling time and number of oscillations don’t matter as much.</p>
 <p>To implement the I term, I have an error_sum variable that adds the calculated error multiplied by dt (which is the time for each control loop iteration in seconds here). To deal with integrator windup, I clamp the sum by a maximum and minimum value, which are the maximum PWM value and the negative of it, respectively, multiplied by 4. This gives me more granularity, and initially I set Ki=0.25, so the max the error_sum*Ki can be is the max PWM value. I eventually tuned Ki=0.1. </p>
-<p>I also included a new function that ensures the calculated error is between (-180, 180] so that we go the shortest angular path to the set_point. </p>
+<p>I also included a new function that ensures the calculated error is between (-180,180] so that we go the shortest angular path to the set_point. </p>
 <figure>
     <img align="center" width="700" height="200" src="norm.png" alt='missing' />
 </figure>
@@ -13150,7 +13150,7 @@ div#notebook {
 <figure>
     <img align="center" width="700" height="200" src="mappid.png" alt='missing' />
 </figure>
-<p>Here is a video of the robot doing an on-axis turn reliably with accompanying graphs.</p>
+<p>Video of the robot doing an on-axis turn reliably with graphs.</p>
 <iframe width="560" height="315"
   src="https://www.youtube.com/embed/OQUjD5HdlYo"
   style="display: block; margin: 0 auto;"
