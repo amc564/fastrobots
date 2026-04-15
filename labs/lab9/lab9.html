@@ -13139,14 +13139,14 @@ div#notebook {
 <figure>
     <img align="center" width="700" height="200" src="norm.png" alt='missing' />
 </figure>
-<p>We will end the PID control and move to the next angle once the absolute error is within 0.5 degrees of the set_point for 5 consecutive times. The imuIndex for the data array is returned so that the next call to the angular PID controller can save data where it left off.</p>
+<p>We will end the PID control and move to the next angle once the absolute error is within 0.5° of the set_point for 5 consecutive times. The imuIndex for the data array is returned so that the next call to the angular PID controller can save data where it left off.</p>
 <figure>
     <img align="center" width="700" height="200" src="firstpartpid.png" alt='missing' />
 </figure>
 <figure>
     <img align="center" width="700" height="200" src="secondpartpid.png" alt='missing' />
 </figure>
-<p>In my main “.ino” script, I had a command that could edit the gains again and set a flag so that the main loop knew to run a specific map code. I arrayed 25 readings, each spaced 15 degrees apart, and the system uses PID control to reach the set points in order. Now the robot can do on-axis turns in small, accurate steps. After each set_point, before going to the next, the robot will stop in place and then gather 100 TOF data points using code from previous labs. We stop in place so the TOF sensor is guaranteed to read a fixed point in space.</p>
+<p>In my “.ino” script, I had a command that could edit the gains and set a flag so that the main loop knew to run a specific map code. I arrayed 25 readings, each spaced 15° apart, and the system uses PID control to reach the set points in order. Now the robot can do on-axis turns in small, accurate steps. After each set_point, before going to the next, the robot will stop in place and then gather 100 TOF data points using code from previous labs. We stop in place so the TOF sensor is guaranteed to read a fixed point in space.</p>
 <figure>
     <img align="center" width="700" height="200" src="mappid.png" alt='missing' />
 </figure>
@@ -13159,9 +13159,9 @@ div#notebook {
 <figure>
     <img align="center" width="700" height="800" src="datathree.png" alt='missing' />
 </figure>
-<p>The time does not include the duration of TOF measurements when the robot is stopped. This trial was when I only had 19 set points with 20-degree increments. Drift from the sensor is compensated by averaging 100 TOF measurements. My robot turns on axis fairly well; in future attempts, sometimes it ends with its center a little bit behind where it was initially, but it is a negligible distance. The error in my angular PID is within 0.5 degrees, and on average it is 0.2 degrees. For a 4x4m square room (ignoring the distance of the TOF sensor to the center of the robot), the TOF sensor will read a maximum of 2sqrt(2)m (corner of wall). So lateral_errormax=2sqrt(2)*sin(0.5)=24.7mm and lateral_erroravg=2sqrt(2)*sin(0.2)=9.9mm. In lab 7 I found the STD to be 6.797178702320482mm. So on average the error is acceptable, but in the worst case we could run into some issues. Thus, I took 100 TOF measurements so we have enough data to average it out and have an acceptable error.</p>
+<p>The time doesn't include the duration of TOF measurements when the robot is stopped. This trial was when I only had 19 set_points with 20-degree increments. Drift from the sensor is compensated by averaging 100 TOF measurements. My robot turns on axis fairly well; in future attempts, sometimes it ends with its center a bit behind where it was initially, but it is a negligible distance. The error in my angular PID is within 0.5°, and on average it is 0.2°. For a 4x4m square room (ignoring the distance of the TOF sensor to the center of the robot), the TOF sensor will read a maximum of 2sqrt(2)m (corner of wall). So lateral_errormax=2sqrt(2)*sin(0.5)=24.7mm and lateral_erroravg=2sqrt(2)*sin(0.2)=9.9mm. In lab 7 I found the STD to be 6.797178702320482mm. So on average the error is acceptable, but in the worst case we could run into some issues. Thus, I took 100 TOF measurements so we have enough data to average it out and have an acceptable error.</p>
 <h2>Reading out distances</h2>
-<p>I execute my turn at (3.5833333333,0.75),(0,0),(-3,-2),(0,3),(5,3), and (5,-3)ft. I added the first point, in the center of the closed square, to get better information about that area. As I turn and then stop, I only use the front ToF sensor and, after all the data are collected, send them back to the Jupyter notebook over BLE. The robot is always in the same starting position where the front faces along the positive y-axis at 0 degrees in the world frame. Because of how precise I made my controller, I assume the readings are equally spaced by 15 degrees. To simplify things, I assume the robot turns in place, and comparing it to the map in real life, it matches up fairly well. For (5,3) below, rotating multiple different times got very similar results, proving the repeatability and precision.</p>
+<p>I execute my turn at (3.5833333333,0.75),(0,0),(-3,-2),(0,3),(5,3), and (5,-3)ft. I added the first point, in the center of the closed square, to get better information about that area. As I turn and then stop, I only use the front ToF sensor and, after all the data are collected, send them back to the Jupyter notebook over BLE. The robot is always in the same starting position where the front faces along the positive y-axis at 0° in the world frame. Because of how precise I made my controller, I assume the readings are equally spaced by 15°. To simplify things, I assume the robot turns in place, and comparing it to the map in real life, it matches up fairly well. For (5,3) below, rotating multiple different times got very similar results, proving the repeatability and precision.</p>
 <h3>(3.5833333333,0.75)</h3>
 <figure>
     <img align="center" width="500" height="600" src="first.png" alt='missing' />
@@ -13186,16 +13186,16 @@ div#notebook {
 <figure>
     <img align="center" width="500" height="600" src="sixth.png" alt='missing' />
 </figure>
-<p>Basic implementation of the code, and then I used Claude to make it look prettier:</p>
+<p>Basic implementation and I used Claude so it look prettier:</p>
 <figure>
     <img align="center" width="700" height="600" src="psuedo.png" alt='missing' />
 </figure>
-<p>Orientation control for point (5,-3)ft with TOF output plotted vs. time and in polar.</p>
+<p>Orientation control for point (5,-3)ft with distance vs. time and in polar.</p>
 <figure>
     <img align="center" width="1500" height="600" src="singmot.png" alt='missing' />
 </figure>
 <h2>Merge and plot readings:</h2>
-<p>The TOF sensor is about 70mm away from the center of the robot:</p>
+<p>The TOF sensor is ~70mm away from the robot's center:</p>
 <figure>
     <img align="center" width="500" height="500" src="measure.png" alt='missing' />
 </figure>
@@ -13236,7 +13236,7 @@ div#notebook {
     <img align="center" width="700" height="700" src="scatter.png" alt='missing' />
 </figure>
 <h2>Convert to Line-Based Map:</h2>
-<p>I now manually estimate where the walls are. </p>
+<p>I now estimate the walls location. </p>
 <figure>
     <img align="center" width="900" height="900" src="final.png" alt='missing' />
 </figure>
