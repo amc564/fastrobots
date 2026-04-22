@@ -13174,7 +13174,7 @@ div#notebook {
 <figure>
     <img align="center" width="700" height="400" src="compute_ctrl.png" alt='missing' />
 </figure>
-<p>For this function, I just followed the odometry model theory discussed in class, shown below: </p>
+<p>I followed the odometry model theory discussed in class: </p>
 <figure>
     <img align="center" width="500" height="200" src="draw.png" alt='missing' />
 </figure>
@@ -13183,7 +13183,7 @@ div#notebook {
 <figure>
     <img align="center" width="700" height="400" src="odom_model.png" alt='missing' />
 </figure>
-<p>I followed the odometry model algorithm from class.</p>
+<p>I followed the algorithm from class.</p>
 <figure>
     <img align="center" width="600" height="700" src="odoalgo.png" alt='missing' />
 </figure>
@@ -13203,7 +13203,7 @@ div#notebook {
 <figure>
     <img align="center" width="700" height="400" src="updatestep.png" alt='missing' />
 </figure>
-<p>We don’t use the sensor_model helper function and instead do those calculations in update_step so we can vectorize this step and be more efficient. Conceptually, we have “mapper.obs_views” as our mean since it is the true observation/the sensor should read at that grid cell in the map. Given this true observation, we are calculating how likely the noisy sensor measurement is (obs_range_data.flatten); of course, we are assuming the sensor noise is Gaussian with a standard deviation of loc.sensor_sigma. To deal with floating-point underflow, we normalize the belief at the end. However, we were supposed to do this regardless anyway, as that is why we multiply by η.</p>
+<p>We don’t use the sensor_model helper function and instead do those calculations in update_step so we can vectorize for efficiency. Conceptually, we have “mapper.obs_views” as our mean since it is the true observation/the sensor should read at that grid cell in the map. Given this true observation, we are calculating how likely the noisy sensor measurement is (obs_range_data.flatten); of course, we assume the sensor noise is Gaussian with an SD of loc.sensor_sigma. To deal with floating-point underflow, we normalize the belief at the end. However, we were supposed to normalize anyway because we multiply by η.</p>
 
 <h3>Run 1</h3>
 <iframe width="700" height="400"
@@ -13229,7 +13229,7 @@ div#notebook {
 <a href="./output-2.txt" download>
   <button>Download RAW Run 2 Data</button>
 </a>
-<p>The most probable state is “bel index,” and it gives its probability, and the ground truth is "GT." For run2, it works well at steps 3,5,13,14. For example, step 3 has a ground truth of x=0.542m and y=-0.933m and a belief of x=0.610m and y=-0.914m. Thus, step 3 has an error of only -0.068m and -0.09m in the x and y directions, respectively. I struggle at steps 2, 7, and 10 the most for the latest run. For step 2, the error is 0.209m for the x direction, and the bel_bar is 4.6e-37, which is practically 0. Thus, our prediction step is very uncertain here. It works well when the bel_bar is reasonably high for the correct cell, as that means the prediction got to roughly the right area, and the update sensor step just confirms it/raises the likelihood of it being there. When the robot is near corners/walls, this allows the update step to be more confident as the sensor has more unique and useful data to correct the prediction step. If bel_bar is practically 0, then the prediction step is practically useless, and we have to rely on the sensor. Since our sensor has noise, it doesn’t give the best location. Angle errors are frequent and common because it is harder to distinguish between two orientations that look similar sensor-wise. Also, large steps in distance make it hard as well since odometry/motion models only work well for short distances. Regardless, the blue (Bayes output) is much closer to the green (ground truth) than the red odometry, as expected.</p>
+<p>The most probable state is “bel index,” and it gives its probability, and the ground truth is "GT." For run2, it works well at steps 3,5,13,14. For example, step 3 has a ground truth of x=0.542m and y=-0.933m and a belief of x=0.610m and y=-0.914m–very minimal error. I struggle at steps 2, 7, and 10 the most for the latest run. For step 2, the error is 0.209m for the x direction, and the bel_bar is 4.6e-37≈0. The prediction step is uncertain here. It works well when the bel_bar is reasonably high, as that means the prediction got to roughly the right area, and the update sensor step just raises the likelihood of it being there. When the robot is near corners/walls, this allows the update step to be more confident as the sensor has more unique and useful data to correct the prediction step. If bel_bar≈0, then the prediction step is practically useless, and we have to rely on the sensor. Since our sensor has noise, it doesn’t give the best location. Angle errors are frequent and common because it is harder to distinguish between orientations that look similar sensor-wise. Also, large steps in distance are an issue since odometry/motion models only work well for short distances. Regardless, the blue (Bayes output) is much closer to the green (ground truth) than the red odometry, as expected.</p>
 
 
 
