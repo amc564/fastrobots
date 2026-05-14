@@ -13165,7 +13165,9 @@ div#notebook {
 </figure>
 
 <h2>Raw Gyro Calculation</h2>
-
+<figure>
+    <img align="center" width="350" height="300" src="code2.png" alt='missing' />
+</figure>
 <p>The IMU’s address is 0x69, and we start communication/begin to queue up a transmission. We want to first tell the sensor which register we want to read the information from and then read the appropriate bytes. We do “Wire.write(0x35)” to have the register pointer point to this address because of Figure 3 below. AGB0_REG_GYRO_YOUT_H is 0x35, and AGB0_REG_GYRO_YOUT_L is 0x36. Then I do Wire.endTransmission(false) so that the I²C bus isn’t released yet (don’t want TOF intercepting). Then I request 2 bytes from the IMU (which will be the high and low bytes of the gyro’s Y direction). This request makes the MCU the receiver now. We first read the high byte and shift it over 8 bits, and then we read the low byte. These two bytes are then bitwise ORed to get a raw gyro value in the Y direction from -32,768 to 32,767 since it is signed. This is the raw value and must be converted to usable units in deg/s. Since the DMP puts the IMU in +/-2000dps mode. Referencing the <a href="https://invensense.tdk.com/download-resource/ds-000189-icm-20948-datasheet">datasheet</a> for this sensor, this mode corresponds with a scale factor of 16.4, so our angular velocity in deg/s is the raw value divided by 16.4. Also, since we are in the +/-2000 dps mode, we do a simple check to see if the absolute value of the measurement is greater than 2000 and, if so, reject it and use the old value.</p>
 <figure>
     <img align="center" width="350" height="300" src="fig3.png" alt='missing' />
